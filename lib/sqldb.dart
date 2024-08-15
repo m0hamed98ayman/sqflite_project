@@ -16,7 +16,7 @@ class SqlDb {
     String dataBasePath = await getDatabasesPath();
     String path = join(dataBasePath, 'mydatabaseSQL.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 1);
+        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 2);
     return mydb;
   }
 

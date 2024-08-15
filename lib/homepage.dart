@@ -3,59 +3,46 @@ import 'package:sqflite_project/sqldb.dart';
 
 class Home extends StatelessWidget {
   SqlDb sqldb = SqlDb();
+
+  Future<List<Map>> readData() async {
+    List<Map> response = await sqldb.readData("SELECT * FROM 'notes'");
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const  Text(
-          'Sqflite',
-          style: TextStyle(fontSize: 26),
+        backgroundColor: Colors.blue,
+        title: const Text(
+          'HomePage',
+          style: TextStyle(fontSize: 26, color: Colors.white),
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          children: [
-         const    SizedBox(
-              height: 250,
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 99, 232, 209),
-              ),
-              onPressed: () async {
-                int response = await sqldb.insertData('''
-INSERT INTO 'notes' ('note') VALUES ('second note')
-''');
-                print(response);
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Insert Data',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            ),
-           const  SizedBox(height: 40),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor:const  Color.fromARGB(255, 168, 253, 137)),
-              onPressed: () async {
-                List<Map> response =
-                    await sqldb.readData('''SELECT * FROM 'notes' ''');
-                print(response);
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Read Data',
-                  style: TextStyle(fontSize: 24),
-                ),
-              ),
-            ),
-          ],
-        ),
+      body: ListView(
+        children: [
+          FutureBuilder(
+            future: readData(),
+            builder: (BuildContext context, AsyncSnapshot<List<Map>> snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  physics:const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return  Card(child: ListTile(
+                      title:  Text('${snapshot.data![index]}'),
+                    ));
+                  });
+              }
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.grey,
+              ));
+            },
+          ),
+        ],
       ),
     );
   }
