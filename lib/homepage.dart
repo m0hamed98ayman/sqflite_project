@@ -7,7 +7,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text(
+        title:const  Text(
           'Sqflite',
           style: TextStyle(fontSize: 26),
         ),
@@ -16,12 +16,12 @@ class Home extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-             SizedBox(
+         const    SizedBox(
               height: 250,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor:  Color.fromARGB(255, 99, 232, 209),
+                backgroundColor: const Color.fromARGB(255, 99, 232, 209),
               ),
               onPressed: () async {
                 int response = await sqldb.insertData('''
@@ -29,7 +29,7 @@ INSERT INTO 'notes' ('note') VALUES ('second note')
 ''');
                 print(response);
               },
-              child:  Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Insert Data',
@@ -37,16 +37,16 @@ INSERT INTO 'notes' ('note') VALUES ('second note')
                 ),
               ),
             ),
-             SizedBox(height: 40),
+           const  SizedBox(height: 40),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  backgroundColor:  Color.fromARGB(255, 168, 253, 137)),
+                  backgroundColor:const  Color.fromARGB(255, 168, 253, 137)),
               onPressed: () async {
                 List<Map> response =
                     await sqldb.readData('''SELECT * FROM 'notes' ''');
                 print(response);
               },
-              child:  Padding(
+              child: const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
                   'Read Data',
