@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sqflite_project/add_notes.dart';
 import 'package:sqflite_project/sqldb.dart';
 
 class Home extends StatelessWidget {
@@ -20,21 +21,30 @@ class Home extends StatelessWidget {
         ),
         centerTitle: true,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed("AddNotes");
+          
+        },
+        child: const Icon(Icons.add),
+      ),
       body: ListView(
         children: [
+        
           FutureBuilder(
             future: readData(),
             builder: (BuildContext context, AsyncSnapshot<List<Map>> snapshot) {
               if (snapshot.hasData) {
                 return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  physics:const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return  Card(child: ListTile(
-                      title:  Text('${snapshot.data![index]}'),
-                    ));
-                  });
+                    itemCount: snapshot.data!.length,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          child: ListTile(
+                        title: Text('${snapshot.data![index]}'),
+                      ));
+                    });
               }
               return const Center(
                   child: CircularProgressIndicator(
