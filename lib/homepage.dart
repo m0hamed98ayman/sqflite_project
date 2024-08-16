@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite_project/add_notes.dart';
 import 'package:sqflite_project/sqldb.dart';
 
 class Home extends StatelessWidget {
   SqlDb sqldb = SqlDb();
+
+  Home({super.key});
 
   Future<List<Map>> readData() async {
     List<Map> response = await sqldb.readData("SELECT * FROM 'notes'");

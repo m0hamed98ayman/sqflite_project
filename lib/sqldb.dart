@@ -16,7 +16,7 @@ class SqlDb {
     String dataBasePath = await getDatabasesPath();
     String path = join(dataBasePath, 'mydatabaseSQL.db');
     Database mydb = await openDatabase(path,
-        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 3);
+        onCreate: _onCreate, onUpgrade: _onUpgrade, version: 4);
     return mydb;
   }
 
@@ -25,7 +25,7 @@ class SqlDb {
     int oldVersion,
     int newVersion,
   ) async {
-    await db.execute("ALTER TABLE notes ADD COLUMN color TEXT");
+    await db.execute("ALTER TABLE notes ADD COLUMN title TEXT ");
     print('onUpgrade table database =========================');
   }
 
@@ -33,7 +33,8 @@ class SqlDb {
     await db.execute('''
 CREATE TABLE "notes" (
 'id' INTEGER PRIMARY KEY NOT NULL ,
-'note' TEXT NOT NULL 
+'note' TEXT NOT NULL ,
+
 )
 ''');
     print('onCreate table database =========================');
