@@ -51,8 +51,13 @@ class _AddNotesState extends State<AddNotes> {
                                            INSERT INTO notes (`note`, `title`,`color`)
                                            VALUES ("${note.text}","${title.text}","${color.text}")                                     
                                                       ''');
-                          print('response ==========================');
-                          print(response);
+                                                      if (response>0) {
+                                                      
+                                                       Navigator.of(context).pop();
+                                                      }
+                                                      setState(() {
+                                                        
+                                                      });
                         },
                         child: Container(
                           decoration: const BoxDecoration(

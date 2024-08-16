@@ -30,13 +30,16 @@ class SqlDb {
   }
 
   _onCreate(Database db, int version) async {
-    await db.execute('''
+Batch batch = db.batch();
+
+     batch.execute('''
 CREATE TABLE "notes" (
 'id' INTEGER PRIMARY KEY NOT NULL ,
 'note' TEXT NOT NULL ,
 
 )
 ''');
+await batch.commit();
     print('onCreate table database =========================');
   }
 
